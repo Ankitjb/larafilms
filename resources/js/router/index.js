@@ -5,6 +5,10 @@ import Register from '../pages/Register';
 import Login from '../pages/Login';
 import Dashboard from '../pages/Dashboard';
 
+import Films from '../components/Films';
+import AddFilm from '../components/AddFilm';
+import ViewFilm from '../components/ShowFilm';
+
 export const routes = [
     {
         name: 'home',
@@ -25,6 +29,21 @@ export const routes = [
         name: 'dashboard',
         path: '/dashboard',
         component: Dashboard
+    },
+    {
+        name: 'films',
+        path: '/films',
+        component: Films
+    },
+    {
+        name: 'addfilm',
+        path: '/films/add',
+        component: AddFilm
+    },
+    {
+        name: 'viewfilm',
+        path: '/films/:slug',
+        component: ViewFilm
     },
 ];
 

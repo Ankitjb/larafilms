@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\FilmRepository;
+use App\Repositories\FilmRepositoryInterface;
 use App\Repositories\UserRepository;
 use App\Repositories\UserRepositoryInterface;
 use Illuminate\Support\Facades\Schema;
@@ -16,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind(FilmRepositoryInterface::class, FilmRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
     }
 

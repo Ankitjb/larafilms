@@ -13,15 +13,18 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-use App\Http\Controllers\API\V1\UserController;
-
-/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});*/
+use App\Http\Controllers\API\V1;
 
 Route::prefix('v1')->group(function (){
-    Route::post('login', [UserController::class, 'login']);
-    Route::post('register', [UserController::class, 'register']);
-    Route::post('logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
+    Route::post('login', [V1\UserController::class, 'login']);
+    Route::post('register', [V1\UserController::class, 'register']);
 });
 
+Route::prefix('v1')->group(function (){
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('logout', [V1\UserController::class, 'logout']);
+        Route::resource('films', V1\FilmController::class);
+        Route::get('getcountries', [V1\CountryController::class,'index'])->name('getcountries');
+        Route::get('getgenres', [V1\GenreController::class,'index'])->name('getgenres');
+    });
+});
