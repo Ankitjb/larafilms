@@ -10,11 +10,11 @@
    
 2) Run Following commands for Application database setup and seed
    - Update your database configuration as per your environment.Currently I have sent general local environment.
-     DB_HOST=127.0.0.1
-	 DB_PORT=3306
-	 DB_DATABASE=larafilms
-	 DB_USERNAME=root
-	 DB_PASSWORD=
+     - DB_HOST=127.0.0.1
+	 - DB_PORT=3306
+	 - DB_DATABASE=larafilms
+	 - DB_USERNAME=root
+	 - DB_PASSWORD=
 
    - php artisan migrate --seed
 3) Run following command to start server.
