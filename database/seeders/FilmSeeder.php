@@ -24,7 +24,7 @@ class FilmSeeder extends Seeder
 
         // Create the User films
         $users->each(function($user){
-            $film = Film::factory( )->create([
+            $film = Film::factory()->create([
                 'user_id' => $user->id
             ]);
             $film->genres()->attach(Genre::all()->random(3));

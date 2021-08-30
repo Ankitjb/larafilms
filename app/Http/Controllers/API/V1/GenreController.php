@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class GenreController extends Controller
 {
+    /**
+     * This function use for get all genre
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         $data = GenreResource::collection(Genre::all());

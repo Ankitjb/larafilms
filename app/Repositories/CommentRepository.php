@@ -1,13 +1,11 @@
 <?php
 namespace App\Repositories;
 
-use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use App\Models\Film;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rules;
+
 
 class CommentRepository implements CommentRepositoryInterface
 {
@@ -17,16 +15,15 @@ class CommentRepository implements CommentRepositoryInterface
         $this->film = $film;
     }
 
-
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new comment.
      *
      * @return Response
      */
     public function store($data)
     {
         $validator = Validator::make($data,[
-            'comment' => 'required|string|max:255',
+            'comment' => 'required|string|max:191',
             'slug' => 'required',
         ]);
 

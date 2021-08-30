@@ -15,7 +15,7 @@ class UserController extends Controller
     }
 
     /**
-     * Register
+     * This function use for Register
      */
     public function register(Request $request)
     {
@@ -24,7 +24,7 @@ class UserController extends Controller
     }
 
     /**
-     * Login
+     * This function use for Login
      */
     public function login(Request $request)
     {
@@ -33,7 +33,7 @@ class UserController extends Controller
     }
 
     /**
-     * Logout
+     * This function use for Logout
      */
     public function logout()
     {

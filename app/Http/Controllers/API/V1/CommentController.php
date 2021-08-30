@@ -14,6 +14,12 @@ class CommentController extends Controller
         $this->commentRepository = $commentRepository;
     }
 
+    /**
+     * This function use for store comment.
+     * @param string $slug
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store($slug, Request $request)
     {
         $request->merge(['user_id' => Auth::user()->id,'slug' => $slug]);

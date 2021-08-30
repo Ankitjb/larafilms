@@ -14,12 +14,21 @@ class FilmController extends Controller
         $this->filmRepository = $filmRepository;
     }
 
+    /**
+     * This function use for display all films
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         $response = $this->filmRepository->all();
         return response()->json($response);
     }
 
+    /**
+     * This function use for store film.
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Request $request)
     {
         $request->merge(['user_id' => Auth::user()->id]);
@@ -27,6 +36,11 @@ class FilmController extends Controller
         return response()->json($response);
     }
 
+    /**
+     * This function use for show film details.
+     * @param $slug
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function show($slug)
     {
         $response = $this->filmRepository->show($slug);

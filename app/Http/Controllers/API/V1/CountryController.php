@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class CountryController extends Controller
 {
+    /**
+     * This function use display all countries.
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         $data = CountryResource::collection(Country::all());

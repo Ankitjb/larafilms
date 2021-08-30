@@ -10,12 +10,17 @@ use Illuminate\Validation\Rules;
 
 class UserRepository implements UserRepositoryInterface
 {
+    /**
+     * This function use for register user.
+     * @param array $data
+     * @return array
+     */
     public function register($data)
     {
         try {
             $validator = Validator::make($data,[
-                'name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users',
+                'name' => 'required|string|max:191',
+                'email' => 'required|string|email|max:191|unique:users',
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ]);
 
@@ -48,10 +53,15 @@ class UserRepository implements UserRepositoryInterface
         return $response;
     }
 
+    /**
+     * This function use for login user.
+     * @param array $data
+     * @return array
+     */
     public function login($data)
     {
         $validator = Validator::make($data,[
-            'email' => 'required|string|email|max:255',
+            'email' => 'required|string|email|max:191',
             'password' => ['required'],
         ]);
 
@@ -84,6 +94,10 @@ class UserRepository implements UserRepositoryInterface
         return $response;
     }
 
+    /**
+     * This function use for logout user.
+     * @return array
+     */
     public function logout()
     {
         try {

@@ -19,7 +19,7 @@ class FilmRepository implements FilmRepositoryInterface
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new film.
      *
      * @return Response
      */
@@ -30,21 +30,21 @@ class FilmRepository implements FilmRepositoryInterface
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new film.
      *
      * @return Response
      */
     public function store($data)
     {
         $validator = Validator::make($data,[
-            'name' => 'required|string|max:255|unique:films',
+            'name' => 'required|string|max:191|unique:films',
             'description' => 'required',
             'release_date' => 'required|date|date_format:Y-m-d',
             'rating' => 'required|integer|between:1,5',
             'ticket_price' => 'required|numeric',
             'country_id' => 'required',
             'genres' => 'required',
-            'photo' => 'required|image|max:4000|min:1',
+            'photo' => 'required|image|max:4000',
         ]);
 
         if ($validator->fails()) {

@@ -9,7 +9,7 @@ class Country extends Model
 {
     use HasFactory;
 
-    protected $timestamp = false;
+    public $timestamps = false;
 
     /**
      * The attributes that are mass assignable.
