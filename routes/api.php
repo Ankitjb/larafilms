@@ -26,5 +26,6 @@ Route::prefix('v1')->group(function (){
         Route::resource('films', V1\FilmController::class);
         Route::get('getcountries', [V1\CountryController::class,'index'])->name('getcountries');
         Route::get('getgenres', [V1\GenreController::class,'index'])->name('getgenres');
+        Route::post('comments/{slug}', [V1\CommentController::class,'store']);
     });
 });

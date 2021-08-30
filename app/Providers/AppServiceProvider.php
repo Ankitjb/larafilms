@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\CommentRepository;
+use App\Repositories\CommentRepositoryInterface;
 use App\Repositories\FilmRepository;
 use App\Repositories\FilmRepositoryInterface;
 use App\Repositories\UserRepository;
@@ -20,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(FilmRepositoryInterface::class, FilmRepository::class);
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+        $this->app->bind(CommentRepositoryInterface::class, CommentRepository::class);
     }
 
     /**
@@ -29,6 +32,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Schema::defaultStringLength(191);
+        Schema::defaultStringLength(255);
     }
 }

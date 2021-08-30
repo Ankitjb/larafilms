@@ -9,6 +9,8 @@ import Films from '../components/Films';
 import AddFilm from '../components/AddFilm';
 import ViewFilm from '../components/ShowFilm';
 
+import AddComment from '../components/AddComment';
+
 export const routes = [
     {
         name: 'home',
@@ -44,6 +46,11 @@ export const routes = [
         name: 'viewfilm',
         path: '/films/:slug',
         component: ViewFilm
+    },
+    {
+        name: 'addcomment',
+        path: '/comments/add',
+        component: AddComment
     },
 ];
 

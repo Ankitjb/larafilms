@@ -27,6 +27,7 @@ class FilmResource extends JsonResource
             'country' => $this->country->name,
             'ticket_price' => $this->ticket_price,
             'photo' => $this->photo,
+            'comments' => CommentResource::collection($this->comments)
         ];
     }
 }

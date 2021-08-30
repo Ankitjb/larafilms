@@ -1,4 +1,9 @@
 <template>
+    <div class="alert alert-danger" role="alert" v-if="error !== null">
+        <div v-for="err in error">
+            {{ err[0] }}
+        </div>
+    </div>
     <div>
         <div class="row">
             <div class="form-group col-md-10 text-right">
@@ -53,6 +58,32 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-11">
+                <h4 class="text-left">Related Comment</h4>
+            </div>
+        </div>
+        <div class="table" v-for="comment in comments" :key="comment.id">
+            <div class="form-group">
+                <label>Added By: </label>{{ comment.added_by }}<br/>
+                <label>Comment: </label>{{ comment.comment }}
+            </div>
+        </div>
+        <div>
+            <h4 class="text-left">Add Comment</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <form @submit.prevent="addComment">
+                        <div class="form-group mb-3">
+                            <label>Comment</label>
+                            <textarea type="text" class="form-control" v-model="comment.comment" placeholder="Enter Description"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <router-link to="/films" class="btn btn-secondary">Cancel</router-link>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -60,33 +91,51 @@
 export default {
     data() {
         return {
-            film: {}
+            film: {},
+            comments: {},
+            comment: {},
+            error: null,
         }
     },
     created() {
-        this.$axios.get('/sanctum/csrf-cookie').then(response => {
-            this.$axios.get(`/api/v1/films/${this.$route.params.slug}`)
-                .then(response => {
-                    this.film = response.data[0];
-                })
-                .catch(function (error) {
-                    console.error(error);
-                });
-        })
+        this.showFilm();
     },
     methods: {
-
+        showFilm() {
+            this.$axios.get('/sanctum/csrf-cookie').then(response => {
+                this.$axios.get(`/api/v1/films/${this.$route.params.slug}`)
+                    .then(response => {
+                        this.film = response.data;
+                        this.comments = response.data.comments;
+                    })
+                    .catch(function (error) {
+                        console.error(error);
+                    });
+            })
+        },
+        addComment() {
+            this.$axios.get('/sanctum/csrf-cookie').then(response => {
+                this.$axios.post(`/api/v1/comments/${this.$route.params.slug}`, this.comment)
+                    .then(response => {
+                        if (response.data.success) {
+                            this.showFilm();
+                            this.comment = {}
+                            this.error = null
+                        } else {
+                            this.error = response.data.message
+                        }
+                    })
+                    .catch(function (error) {
+                        console.error(error);
+                    });
+            })
+        }
     },
     beforeRouteEnter(to, from, next) {
         if (!window.Laravel.isLoggedin) {
             window.location.href = "/";
         }
         next();
-    },
-    computed: {
-        imagePath() {
-            return `${film.photo}`
-        }
     }
 }
 </script>

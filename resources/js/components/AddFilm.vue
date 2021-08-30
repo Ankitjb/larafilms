@@ -1,4 +1,9 @@
 <template>
+    <div class="alert alert-danger" role="alert" v-if="error !== null">
+        <div v-for="err in error">
+            {{ err[0] }}
+        </div>
+    </div>
     <div>
         <h4 class="text-left">Add Film</h4>
         <div class="row">
@@ -65,27 +70,41 @@ export default {
             countries: [],
             genres: [],
             photo: null,
+            error: null,
         }
     },
     methods: {
         addFilm() {
             this.$axios.get('/sanctum/csrf-cookie').then(response => {
                 const data = new FormData();
-                data.append('name',  this.film.name);
-                data.append('description',  this.film.description);
-                data.append('release_date',  this.film.release_date);
-                data.append('rating',  this.film.rating);
-                data.append('ticket_price',  this.film.ticket_price);
-                data.append('country_id',  this.film.country);
-                data.append('genres', this.film.genres);
-                data.append('photo', this.photo);
+                if(typeof this.film.name != 'undefined')
+                    data.append('name',  this.film.name);
+                if(typeof this.film.description != 'undefined')
+                    data.append('description',  this.film.description);
+                if(typeof this.film.release_date != 'undefined')
+                    data.append('release_date',  this.film.release_date);
+                if(typeof this.film.rating != 'undefined')
+                    data.append('rating',  this.film.rating);
+                if(typeof this.film.ticket_price != 'undefined')
+                    data.append('ticket_price',  this.film.ticket_price);
+                if(typeof this.film.country != 'undefined')
+                    data.append('country_id',  this.film.country);
+                if(typeof this.film.genres != 'undefined')
+                    data.append('genres', this.film.genres);
+                if(typeof this.photo != 'undefined')
+                    data.append('photo', this.photo);
+
                 this.$axios.post('/api/v1/films', data, {
                         headers : {
                             'Content-Type': 'multipart/form-data'
                         }
                     })
                     .then(response => {
-                        this.$router.push({name: 'films'})
+                        if (response.data.success) {
+                            this.$router.push({name: 'films'})
+                        } else {
+                            this.error = response.data.message
+                        }
                     })
                     .catch(function (error) {
                         console.error(error);

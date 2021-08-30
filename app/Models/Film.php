@@ -54,12 +54,16 @@ class Film extends Model
 
     public function getRatingAttribute($value)
     {
-
         return self::RATING[$value];
     }
 
     public function getReleaseDateAttribute($value)
     {
         return Carbon::parse($value)->format('d-m-Y');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }
